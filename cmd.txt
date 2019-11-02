@@ -1,0 +1,28 @@
+hadoop jar target/NearDuplicateDetection-1.1-SNAPSHOT.jar org.NearDuplicateDetection.MinHash -input resources/sample.txt -output output-java-mh
+
+spark-submit --class org.NearDuplicateDetection.MinHashS target/NearDuplicateDetection-1.1-SNAPSHOT.jar --input resources/sample.txt --output output-scala-mh
+
+hadoop jar target/NearDuplicateDetection-1.1-SNAPSHOT.jar org.NearDuplicateDetection.RandomProjection -input output_vector.txt -output output-java-rj
+
+
+ mvn exec:java -Dexec.mainClass=org.NearDuplicateDetection.GenerteRandomVectors 
+
+spark-submit --class org.NearDuplicateDetection.RandomProjectionS target/NearDuplicateDetection-1.1-SNAPSHOT.jar --input output_vector.txt --output output-scala-rj
+
+
+hadoop jar target/NearDuplicateDetection-1.1-SNAPSHOT.jar org.NearDuplicateDetection.MinHash -input /Users/lucasmeng/WikiClean/wiki_output.txt -output output-wiki-java-mh
+
+
+hadoop jar target/NearDuplicateDetection-1.1-SNAPSHOT.jar org.NearDuplicateDetection.MinHash -input cs651-pro/cs651-pro-wiki-new.txt -output cs651-pro-wiki -reducers 16
+
+
+hadoop jar target/NearDuplicateDetection-1.1-SNAPSHOT.jar org.NearDuplicateDetection.Cluster -input output-java-mh-3 -output output-cluster
+
+hadoop jar target/NearDuplicateDetection-1.1-SNAPSHOT.jar org.NearDuplicateDetection.Cluster -input output-java-rj -output output-cluster-rj
+
+
+
+hadoop jar target/NearDuplicateDetection-1.1-SNAPSHOT.jar org.NearDuplicateDetection.Cluster -input cs651-pro-wiki -output output-cluster
+
+
+spark-submit --class org.NearDuplicateDetection.MinHashS --num-executors 2 --executor-cores 4 --executor-memory 24G target/NearDuplicateDetection-1.1-SNAPSHOT.jar --input cs651-pro/cs651-pro-wiki-new.txt --output cs651-pro-wiki-scala --reducers 16
